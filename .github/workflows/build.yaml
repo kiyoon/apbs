@@ -40,26 +40,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu, macOS, windows]
+        platform: [macOS]
         openmp: [OFF]
         static-build: [ON]
         python-version: ["3.10"]
         include:
-          - platform: ubuntu
-            os: ubuntu-22.04
-            bla-vendor: OpenBLAS
-            create-package: true
-            architecture: x64
+          # - platform: ubuntu
+          #   os: ubuntu-22.04
+          #   bla-vendor: OpenBLAS
+          #   create-package: true
+          #   architecture: x64
           - platform: macos
-            os: macos-11
+            os: macos-14
             bla-vendor: Apple
             create-package: true
-            architecture: x64
-          - platform: windows
-            os: windows-2022
-            bla-vendor: OpenBLAS
-            create-package: true
-            architecture: x86
+            architecture: arm64
+          # - platform: windows
+          #   os: windows-2022
+          #   bla-vendor: OpenBLAS
+          #   create-package: true
+          #   architecture: x86
 
     env:
       BLA_VENDOR: ${{ matrix.bla-vendor }}
@@ -277,9 +277,9 @@ jobs:
             package_file: ${{ needs.build.outputs.cpack-out-lin-zip }}
             architecture: x64
           - cpack: mac-zip
-            os: macOS-11
+            os: macOS-14
             package_file: ${{ needs.build.outputs.cpack-out-mac-zip }}
-            architecture: x64
+            architecture: arm64
           - cpack: win-zip
             os: windows-2022
             package_file: ${{ needs.build.outputs.cpack-out-win-zip }}
